@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
 </head>
+
 <body>
-  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <p>
+    <em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
     // Get your shorts on - this is an array workout!
     // ## Array Cardio Day 1
@@ -31,15 +34,41 @@
 
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    function yearOfBirth(inventor) {
+      if (inventor.year >= 1500 && inventor.year < 1600)
+        return inventor
+    }
+    let inventorsBirth = inventors.filter(yearOfBirth)
+    //console.log('BORN IN 1500s:', inventorsBirth)
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors' first and last names
+    let name = []
+    inventors.map(inventor => {
+      name.push(`${inventor.first} ${inventor.last}`)
+      return name
+    })
+    //console.log("NAMES:", name)
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    let birthDate = inventors.sort((a, b) => {
+      let age_a = a.passed - a.year;
+      let age_b = b.passed - b.year;
+      return age_b - age_a;
+    })
+    //console.log("SORTING INVENTORS FROM OLDEST TO YOUNGEST:", birthDate)
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live?
+    let sumTotal = 0
+    let sumOfYears = inventors.reduce((r, v, i) => {
+      let age = v.passed - v.year
+      sumTotal += age
+      return sumTotal
+
+    })
+    //console.log("THE SUM OF ALL AGES:", sumOfYears)
 
     // 5. Sort the inventors by years lived
 
@@ -52,8 +81,15 @@
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
-
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+    data.reduce((r, v) => {
+      if (!r[v]) {
+        r[v] = 0
+      }
+      r[v]++
+      return r;
+    }, {});
   </script>
 </body>
+
 </html>

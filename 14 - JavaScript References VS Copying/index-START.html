@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS Reference VS Copy</title>
 </head>
+
 <body>
 
   <script>
@@ -13,44 +15,65 @@
     const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
 
     // and we want to make a copy of it.
-
     // You might think we can just do something like this:
-
     // however what happens when we update that array?
-
     // now here is the problem!
-
     // oh no - we have edited the original array too!
-
     // Why? It's because that is an array reference, not an array copy. They both point to the same array!
-
     // So, how do we fix this? We take a copy instead!
-
     // one way
-
     // or create a new array and concat the old one in
-
     // or use the new ES6 Spread
-
     // now when we update it, the original one isn't changed
-
     // The same thing goes for objects, let's say we have a person object
+    //////////  4 ways to copy an array  \\\\\\\\\\\\\\\\\\\\
+    // 1. Splice
+    const splicePlayers = players.slice()
+    splicePlayers[3] = 'Candice'
+    // 2. Concat
+    const concatPlayers = [].concat(players)
+    concatPlayers[3] = 'Candice'
+    // 3. Spread Operator
+    const spreadPlayers = [...players]
+    spreadPlayers[3] = 'Candice'
+    // 4. Array.from
+    const fromPlayers = Array.from(players)
+    fromPlayers[3] = 'Candice'
+
+    //Note: the original array does not replace 'Poppy' with 'Candice'
+    console.log('original array:', players)
+    console.log('array copies:', splicePlayers, concatPlayers, spreadPlayers, fromPlayers)
 
     // with Objects
     const person = {
       name: 'Wes Bos',
-      age: 80
+      age: 80,
+      pets: {
+        dogs: 2,
+        cats: 3,
+        birds: 1
+      }
     };
 
     // and think we make a copy:
-
     // how do we take a copy instead?
-
     // We will hopefully soon see the object ...spread
-
     // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
 
+
+    // Only one level deep
+    const assignPerson = Object.assign({}, person, { name: 'Candice', age: 27 })
+
+    // Using this method will allow for a deep clone though may not be great performance-wise
+    const jsonPerson = JSON.parse(JSON.stringify(person))
+    jsonPerson.pets.dogs = 3
+    console.log('original object:', person)
+    console.log('object copy:', assignPerson)
+    console.log('object deep clone using parse and stringify', jsonPerson)
+
+    // React allows for the use of the spread operator to clone an object like so: const spreadPerson =  {...person}
   </script>
 
 </body>
+
 </html>

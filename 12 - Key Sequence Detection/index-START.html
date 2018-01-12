@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Key Detection</title>
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
+
 <body>
-<script>
-</script>
+  <script>
+    const konami_code = 'candice'
+    let user_input = [];
+
+    window.addEventListener('keyup', (e) => {
+      user_input.push(e.key)
+      user_input.splice(-konami_code.length - 1, user_input.length - konami_code.length)
+      konami_code === user_input.join('') ? cornify_add() : null;
+    })
+  </script>
 </body>
+
 </html>
